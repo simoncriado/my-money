@@ -2,24 +2,24 @@ import { useEffect, useState } from "react"
 import { projectAuth } from "../firebase/config"
 import { useAuthContext } from "./useAuthContext"
 
-// We use this hook inside a component and then we use the logout function. If in the meantime we unmount the component then the cleanup function will be fired and then isCancelled 
-// is going to be updated to "true". Then if after that we get the response for the signOut back and it tries to update the state it is not going to do it because isCancelled is now true.
-export const useLogout = () => {
+// We use this hook inside a component and then we use the login function. If in the meantime we unmount the component then the cleanup function will be fired and then isCancelled 
+// is going to be updated to "true". Then if after that we get the response for the signInWithEmailAndPassword back and it tries to update the state it is not going to do it because isCancelled is now true.
+export const useLogin = () => {
     const [isCancelled, setIsCancelled] = useState(false)
     const [error, setError] = useState(null)
     const [isPending, setIsPending] = useState(false)
     const { dispatch } = useAuthContext()
 
-    const logout = async () => {
+    const login = async (email, password) => {
         setError(null)
         setIsPending(true)
 
-        // Sign the user out
+        // Sign the user in
         try {
-            await projectAuth.signOut()
+            const res = await projectAuth.signInWithEmailAndPassword(email, password)
 
-            // Dispatch logout action
-            dispatch({ type: 'LOGOUT' })
+            // Dispatch login action
+            dispatch({ type: 'LOGIN', payload: res.user })
 
             // Update state
             if (!isCancelled) {
@@ -42,6 +42,5 @@ export const useLogout = () => {
         return () => setIsCancelled(true)
     }, [])
 
-    return { logout, error, isPending }
-
+    return { login, error, isPending }
 }
