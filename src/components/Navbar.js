@@ -13,7 +13,7 @@ export default function Navbar() {
     return (
         <nav className={styles.navbar}>
             <ul>
-                <li className={styles.title}>myMoney</li>
+                <li className={styles.title}>myMoneyApp</li>
 
                 {/* If we do NOT have an user then show the login and signup options */}
                 {!user && (
