@@ -1,6 +1,6 @@
 # My Money App
 
-Project part of an online React & Firebase course. I choose to do this to practice my React and Firebase skills. Key project functionalities:
+Project part of an online React & Firebase course. I chose to do this project to practice my React and Firebase skills. Key project functionalities:
 
   - Sign up and log in functionalities.
   - Once you are logged in you can add transactions to your list.
